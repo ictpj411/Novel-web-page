@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <title>小說推薦網</title>
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      background-color: #ffffff;
+      color: #000000;
+      font-family: "Noto Sans TC", sans-serif;
+    }
+
+    header {
+      background-color: #f5f5f5;
+      padding: 1rem 2rem;
+      text-align: center;
+      border-bottom: 1px solid #ccc;
+    }
+
+    header h1 {
+      color: #000000;
+      margin: 0;
+      font-size: 2rem;
+    }
+
+    .category-bar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      background-color: #e0e0e0;
+      padding: 1rem;
+    }
+
+    .category-button {
+      background-color: #d4d4d4;
+      border: none;
+      color: #333;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .category-button:hover,
+    .category-button.active {
+      background-color: #facc15;
+      color: #000;
+    }
+
+    .container {
+      padding: 2rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1.5rem;
+      flex-grow: 1;
+    }
+
+    .book-card {
+      background-color: #f9f9f9;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid #ccc;
+      transition: transform 0.2s;
+    }
+
+    .book-card:hover {
+      transform: scale(1.03);
+    }
+
+    .book-cover {
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
+    }
+
+    .book-info {
+      padding: 0.8rem;
+    }
+
+    .book-title {
+      font-size: 1.1rem;
+      color: #1a1a1a;
+      margin: 0.2rem 0;
+    }
+
+    .book-meta {
+      font-size: 0.85rem;
+      color: #555;
+    }
+
+    .book-title a {
+      text-decoration: none;
+      color: #1a1a1a;
+    }
+
+    .book-title a:hover {
+      text-decoration: underline;
+    }
+
+    footer {
+      background-color: #f5f5f5;
+      text-align: center;
+      padding: 1rem;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>小說推薦網</h1>
+  </header>
+
+  <div class="category-bar">
+    <button class="category-button active" onclick="filterBooks('all', event)">全部</button>
+    <button class="category-button" onclick="filterBooks('武俠仙俠', event)">武俠仙俠</button>
+    <button class="category-button" onclick="filterBooks('BL', event)">BL</button>
+    <button class="category-button" onclick="filterBooks('科幻', event)">科幻</button>
+    <button class="category-button" onclick="filterBooks('歷史', event)">歷史</button>
+    <button class="category-button" onclick="filterBooks('言情', event)">言情</button>
+    <button class="category-button" onclick="filterBooks('都市', event)">都市</button>
+    <button class="category-button" onclick="filterBooks('體育', event)">體育</button>
+    <button class="category-button" onclick="filterBooks('其他', event)">其他</button>
+  </div>
+
+  <div class="container">
+
+    <div class="book-card" data-category="BL 科幻">
+      <img src="砸鍋賣鐵去上學.jpg" alt="封面" class="book-cover">
+      <div class="book-info">
+        <div class="book-title">
+          <a href="https://czbooks.net/n/sh4o9nm" target="_blank">砸鍋賣鐵去上學</a>
+        </div>
+        <div class="book-meta">作者：紅刺北</div>
+      </div>
+    </div>
+
+    <div class="book-card" data-category="科幻">
+      <img src="我在星際種菜卻收穫一個大佬.jpeg" alt="封面" class="book-cover">
+      <div class="book-info">
+        <div class="book-title">
+          <a href="https://czbooks.net/n/crig0" target="_blank">我在星際種菜卻收穫一個大佬</a>
+        </div>
+        <div class="book-meta">作者：陌上凡人</div>
+      </div>
+    </div>
+
+    <div class="book-card" data-category="都市">
+      <img src="系統說我不必改變.jpeg" alt="封面" class="book-cover">
+      <div class="book-info">
+        <div class="book-title">
+          <a href="https://czbooks.net/n/cr7gb3" target="_blank">系統說我不必改變</a>
+        </div>
+        <div class="book-meta">作者：曄子</div>
+      </div>
+    </div>
+
+    <div class="book-card" data-category="科幻">
+      <img src="你這船上怎麼一個正常人都沒有.jpg" alt="封面" class="book-cover">
+      <div class="book-info">
+        <div class="book-title">
+          <a href="https://www.novel543.com/1212464087/" target="_blank">你這船上怎麼一個正常人都沒有？</a>
+        </div>
+        <div class="book-meta">作者：南橋二號機</div>
+      </div>
+    </div>
+
+    <div class="book-card" data-category="BL">
+      <img src="七天七夜.jpg" alt="封面" class="book-cover">
+      <div class="book-info">
+        <div class="book-title">
+          <a href="https://czbooks.net/n/shkf7h" target="_blank">七天七夜</a>
+        </div>
+        <div class="book-meta">作者：春風遙</div>
+      </div>
+    </div>
+
+    <div class="book-card" data-category="其他">
+      <img src="被病嬌邪神強吻！我在恐怖直播爆火了.jpg" alt="封面" class="book-cover">
+      <div class="book-info">
+        <div class="book-title">
+          <a href="https://www.novel543.com/0612557453/" target="_blank">被病嬌邪神強吻！我在恐怖直播爆火了</a>
+        </div>
+        <div class="book-meta">作者：熊就要有個熊樣</div>
+      </div>
+    </div>
+
+    <div class="book-card" data-category="體育">
+      <img src="滿級傳球，請叫我三獅軍團話事人.webp" alt="封面" class="book-cover">
+      <div class="book-info">
+        <div class="book-title">
+          <a href="https://m.xszj.org/b/370181" target="_blank">滿級傳球，請叫我三獅軍團話事人</a>
+        </div>
+        <div class="book-meta">作者：若清峰</div>
+      </div>
+    </div>
+
+    <div class="book-card" data-category="武俠仙俠">
+      <img src="凡人修仙傳.webp" alt="封面" class="book-cover">
+      <div class="book-info">
+        <div class="book-title">
+          <a href="https://www.hetubook.com/book/38/index.html" target="_blank">凡人修仙傳</a>
+        </div>
+        <div class="book-meta">作者：忘語</div>
+      </div>
+    </div>
+
+    <div class="book-card" data-category="歷史">
+      <img src="紹宋.jpg" alt="封面" class="book-cover">
+      <div class="book-info">
+        <div class="book-title">
+          <a href="https://tw.hjwzw.com/Book/41794" target="_blank">紹宋</a>
+        </div>
+        <div class="book-meta">作者：榴彈怕水</div>
+      </div>
+    </div>
+
+    <div class="book-card" data-category="言情">
+      <img src="偽裝學渣.jpg" alt="封面" class="book-cover">
+      <div class="book-info">
+        <div class="book-title">
+          <a href="https://tw.hjwzw.com/Book/41794" target="_blank">偽裝學渣</a>
+        </div>
+        <div class="book-meta">作者：木瓜黃</div>
+      </div>
+    </div>
+
+    <div class="book-card" data-category="BL">
+      <img src="論以貌取人的下場.jpg" alt="封面" class="book-cover">
+      <div class="book-info">
+        <div class="book-title">
+          <a href="https://czbooks.net/n/cd7mfl" target="_blank">論以貌取人的下場</a>
+        </div>
+        <div class="book-meta">作者：月下蝶影</div>
+      </div>
+    </div>
+
+    <div class="book-card" data-category="言情">
+      <img src="偽裝花瓶女配失敗以後.jpg" alt="封面" class="book-cover">
+      <div class="book-info">
+        <div class="book-title">
+          <a href="https://czbooks.net/n/cpg5934/cpn5cmcd?chapterNumber=225" target="_blank">偽裝花瓶女配失敗以後</a>
+        </div>
+        <div class="book-meta">作者：我很高產</div>
+      </div>
+    </div>
+
+    <div class="book-card" data-category="BL">
+      <img src="滑雪後我成了大佬.jpg" alt="封面" class="book-cover">
+      <div class="book-info">
+        <div class="book-title">
+          <a href="https://www.banxia.cc/books/239301.html" target="_blank">滑雪後我成了大佬</a>
+        </div>
+        <div class="book-meta">作者：靜舟小妖</div>
+      </div>
+    </div>
+
+
+    <div class="book-card" data-category="BL">
+      <img src="小瘋子裝乖指南[重生]_李溫酒【完結+番外】.jpg" alt="封面" class="book-cover">
+      <div class="book-info">
+        <div class="book-title">
+          <a href="https://czbooks.net/n/skdocomjgnk" target="_blank">小瘋子裝乖指南[重生]_李溫酒【完結+番外】</a>
+        </div>
+        <div class="book-meta">作者：李溫酒</div>
+      </div>
+    </div>
+
+   <div class="book-card" data-category="言情">
+      <img src="從此男主改拿綠茶劇本.jpg" alt="封面" class="book-cover">
+      <div class="book-info">
+        <div class="book-title">
+          <a href="https://www.banxia.cc/books/184170.html" target="_blank">從此男主改拿綠茶劇本</a>
+        </div>
+        <div class="book-meta">作者：銀發死魚眼</div>
+      </div>
+    </div>
+
+   <div class="book-card" data-category="其他 言情">
+      <img src="歡迎來到我的地獄.jpg" alt="封面" class="book-cover">
+      <div class="book-info">
+        <div class="book-title">
+          <a href="https://czbooks.net/n/s6p7h2" target="_blank">歡迎來到我的地獄</a>
+        </div>
+        <div class="book-meta">作者：墨泠</div>
+      </div>
+    </div>
+
+   <div class="book-card" data-category="BL 科幻">
+      <img src="萬界BOSS聊天群.jpg" alt="封面" class="book-cover">
+      <div class="book-info">
+        <div class="book-title">
+          <a href="https://www.banxia.cc/books/287344.html" target="_blank">萬界BOSS聊天群</a>
+        </div>
+        <div class="book-meta">作者：雲上歌</div>
+      </div>
+    </div>
+
+   <div class="book-card" data-category="BL 科幻">
+      <img src="我在星際供奉老祖宗.jpg" alt="封面" class="book-cover">
+      <div class="book-info">
+        <div class="book-title">
+          <a href="https://www.banxia.cc/books/330373.html" target="_blank">我在星際供奉老祖宗</a>
+        </div>
+        <div class="book-meta">作者：雲上歌</div>
+      </div>
+    </div>
+
+   <div class="book-card" data-category="武俠仙俠 其他">
+      <img src="我法師加奶媽，用七把劍不過份吧.jpg" alt="封面" class="book-cover">
+      <div class="book-info">
+        <div class="book-title">
+          <a href="https://www.novel543.com/1111519814/" target="_blank">我法師加奶媽，用七把劍不過份吧</a>
+        </div>
+        <div class="book-meta">作者：暮回春</div>
+      </div>
+    </div>
+
+   <div class="book-card" data-category="武俠仙俠">
+      <img src="小師妹超乖超軟，但嘎人不見血！.jpg" alt="封面" class="book-cover">
+      <div class="book-info">
+        <div class="book-title">
+          <a href="https://www.novel543.com/0502628696/" target="_blank">小師妹超乖超軟，但嘎人不見血！</a>
+        </div>
+        <div class="book-meta">作者：不吃炸蝦</div>
+      </div>
+    </div>
+
+   <div class="book-card" data-category="武俠仙俠 其他">
+      <img src="瘋批反派：她拉仇恨有一手的.jpg" alt="封面" class="book-cover">
+      <div class="book-info">
+        <div class="book-title">
+          <a href="https://www.novel543.com/0324600962/" target="_blank">瘋批反派：她拉仇恨有一手的</a>
+        </div>
+        <div class="book-meta">作者：我家橘貓十二斤</div>
+      </div>
+    </div>
+
+   <div class="book-card" data-category="武俠仙俠 其他">
+      <img src="我不是戲神.jpg" alt="封面" class="book-cover">
+      <div class="book-info">
+        <div class="book-title">
+          <a href="https://czbooks.net/n/dr4p0k7" target="_blank">我不是戲神</a>
+        </div>
+        <div class="book-meta">作者：三九音域</div>
+      </div>
+    </div>
+
+   <div class="book-card" data-category="科幻 言情 BL">
+      <img src="兩A相逢必有一O.jpg" alt="封面" class="book-cover">
+      <div class="book-info">
+        <div class="book-title">
+          <a href="https://czbooks.net/n/sh2kn5" target="_blank">兩A相逢必有一O</a>
+        </div>
+        <div class="book-meta">作者：厲冬忍</div>
+      </div>
+    </div>
+
+   <div class="book-card" data-category="歷史">
+      <img src="贅婿.jpg" alt="封面" class="book-cover">
+      <div class="book-info">
+        <div class="book-title">
+          <a href="https://www.hetubook.com/book/1640/index.html" target="_blank">贅婿</a>
+        </div>
+        <div class="book-meta">作者：憤怒的香蕉</div>
+      </div>
+    </div>
+
+   <div class="book-card" data-category="歷史">
+      <img src="大奉打更人.webp" alt="封面" class="book-cover">
+      <div class="book-info">
+        <div class="book-title">
+          <a href="https://czbooks.net/n/u19ba" target="_blank">大奉打更人</a>
+        </div>
+        <div class="book-meta">作者：賣報小郎君</div>
+      </div>
+    </div>
+
+
+  </div>
+
+  <footer>
+    © 2025 小說推薦網 | 製作中
+  </footer>
+
+  <script>
+    function filterBooks(category, event) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      const cards = document.querySelectorAll('.book-card');
+      const buttons = document.querySelectorAll('.category-button');
+
+      buttons.forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+
+      cards.forEach(card => {
+        const bookCategory = card.getAttribute('data-category');
+        if (category === 'all' || bookCategory.includes(category)) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+  </script>
+
+<script>
+  function filterBooks(category, event) {
+    // 滾動到頂部
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    // 清除現有 active 樣式
+    document.querySelectorAll('.category-button').forEach(btn => btn.classList.remove('active'));
+    event.target.classList.add('active');
+
+    // 顯示符合分類的書本
+    const books = document.querySelectorAll('.book-card');
+    books.forEach(book => {
+      const categories = book.getAttribute('data-category').split(' ');
+      if (category === 'all' || categories.includes(category)) {
+        book.style.display = '';
+      } else {
+        book.style.display = 'none';
+      }
+    });
+  }
+
+  // 替換圖片載入失敗的情況
+  document.querySelectorAll('.book-cover').forEach(img => {
+    img.onerror = function () {
+      this.src = '暫無封面.jpg';  // 請將這個檔案放到專案資料夾中
+      this.onerror = null; // 防止死循環
+    };
+  });
+</script>
+
+
+
+</body>
+</html>
