@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8">
@@ -31,12 +31,17 @@
     }
 
     .category-bar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background-color: #e0e0e0;
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
       gap: 1rem;
-      background-color: #e0e0e0;
       padding: 1rem;
+      border-bottom: 1px solid #ccc;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
 
     .category-button {
@@ -111,13 +116,49 @@
       padding: 1rem;
       color: #666;
     }
+
+.search-bar {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.search-bar input {
+  padding: 0.5rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  width: 300px;
+  font-size: 1rem;
+}
+
+.search-bar button {
+  padding: 0.5rem 1.2rem;
+  background-color: #22c55e;
+  border: none;
+  color: white;
+  border-radius: 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.search-bar button:hover {
+  background-color: #16a34a;
+}
+
   </style>
 </head>
 <body>
 
   <header>
-    <h1>小說推薦網</h1>
-  </header>
+  <h1>小說推薦網</h1>
+  <div class="search-bar">
+    <input type="text" placeholder="請輸入搜尋關鍵字..." />
+    <button onclick="filterBooks()">搜尋</button>
+  </div>
+</header>
+
 
   <div class="category-bar">
     <button class="category-button active" onclick="filterBooks('all', event)">全部</button>
@@ -388,28 +429,35 @@
   </div>
 
   <footer>
-    © 2025 小說推薦網 | 製作中
+    © 2025 小說推薦網 | Owned by Song Ying Company
   </footer>
 
-  <script>
-    function filterBooks(category, event) {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      const cards = document.querySelectorAll('.book-card');
-      const buttons = document.querySelectorAll('.category-button');
+<script>
+  function filterBooks() {
+    const keyword = document.getElementById("searchInput").value.toLowerCase();
+    const cards = document.querySelectorAll(".book-card");
 
-      buttons.forEach(btn => btn.classList.remove('active'));
-      event.target.classList.add('active');
+    cards.forEach(card => {
+      const title = card.querySelector(".book-title").innerText.toLowerCase();
+      const meta = card.querySelector(".book-meta").innerText.toLowerCase();
+      if (title.includes(keyword) || meta.includes(keyword)) {
+        card.style.display = "block";
+      } else {
+        card.style.display = "none";
+      }
+    });
+  }
+</script>
 
-      cards.forEach(card => {
-        const bookCategory = card.getAttribute('data-category');
-        if (category === 'all' || bookCategory.includes(category)) {
-          card.style.display = 'block';
-        } else {
-          card.style.display = 'none';
-        }
-      });
+
+<script>
+  document.getElementById("searchInput").addEventListener("keypress", function(e) {
+    if (e.key === "Enter") {
+      filterBooks();
     }
-  </script>
+  });
+</script>
+
 
 <script>
   function filterBooks(category, event) {
@@ -445,3 +493,5 @@
 
 </body>
 </html>
+
+
